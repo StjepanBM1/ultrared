@@ -166,7 +166,7 @@ void set_visible(uint8_t data[8 * 8], uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIG
     float scale_factor = 1.0f - (depth * 0.1f); // size reduced 10% for each level of depth
     scale_factor = scale_factor < 0.3f ? 0.3f : scale_factor; // don't let rect get too small
 
-    rect_width = int(SCREEN_WIDTH * 0.80f * scale_factor); // max width = 65%
+    rect_width = int(SCREEN_WIDTH * 0.80f * scale_factor); // max width = 80%
     rect_height = int(rect_width / ratio);
 
     int center_x_rect = SCREEN_WIDTH / 2 - rect_width / 2;

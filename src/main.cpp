@@ -16,11 +16,7 @@ int main(int argc, char const *argv[])
 
     __log("loading map file...", 0);
 
-    uint8_t map_data[8 * 8];
     std::string map_file = argv[1];
-
-    int position;
-    int heading;
 
     DATA data;
 
