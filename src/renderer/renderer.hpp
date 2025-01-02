@@ -13,6 +13,7 @@
 #include <list>
 
 #include "../io/log.hpp"
+#include "../ui/ui.hpp"
 
 // SDL2
 #include <SDL2/SDL.h>

@@ -1,0 +1,10 @@
+
++-------+------------------------------+
+|   id  |   info / meaning             |
++-------+------------------------------+
+    00  -   black / air
+    01  -   dark blue wall
+    02  -   light blue wall
+    03  -   yellow wall
+    04  -   light blue wall
+    99  -   end level

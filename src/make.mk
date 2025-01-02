@@ -1,5 +1,5 @@
 CC=g++
-CF=-O3 -lSDL2
+CF=-O3 -lSDL2 -lSDL2_ttf
 
 override BIN := 0
 override CPP := $(shell find ./src -type f -name '*.cpp')

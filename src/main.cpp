@@ -8,6 +8,7 @@
 #include "io/log.hpp"
 #include "renderer/renderer.hpp"
 #include "file/file.hpp"
+#include "ui/ui.hpp"
 
 int main(int argc, char const *argv[])
 {

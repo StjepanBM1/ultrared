@@ -9,7 +9,8 @@
             1. a C++ compiler (preferably G++)
             2. GNU Make
             3. SDL2 library
-            4. *nix system (preferably Linux)
+            4. SDL2 TTF
+            5. *nix system (preferably Linux)
 
         If you have all of the above run the following command to compile ultrared:
             make -i clean && make

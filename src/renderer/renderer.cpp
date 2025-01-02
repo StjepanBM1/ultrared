@@ -1,21 +1,21 @@
 
+/**
+ * TODO:
+ * add win / end level tiles.
+ */
+
 #include "renderer.hpp"
 
 // variables
-SDL_Window *__m__window;
-SDL_Renderer *__m__renderer;
-SDL_Surface *__m__surface;
-SDL_Texture *__m__texture;
+SDL_Window *__m__window;        // main window
+SDL_Renderer *__m__renderer;    // main renderer
+SDL_Surface *__m__surface;      // main surface
+SDL_Texture *__m__texture;      // main texture
 
 const int center_x = SCREEN_WIDTH / 2;
 const int center_y = SCREEN_HEIGHT / 2;
 
-uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIGHT];
-
-/**
- * TODO:
- * make maps files, not arrays
- */
+uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIGHT];  // frame buffer
 
 static uint8_t visible[8];
 
@@ -45,7 +45,7 @@ void set_visible(uint8_t data[8 * 8], uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIG
         printf("[UR] blank space found.\n");
 
     switch (data[position - LEFT_WALL]) {
-        case 0: 
+        case 0:
             color_left = 0x00000000;
             break;
         
@@ -133,7 +133,7 @@ void set_visible(uint8_t data[8 * 8], uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIG
 
     int color_position = position + FRONTAL_WALL;
     int depth = 0;
-    while (color_position < 8 * 8 && data[color_position] == 0) {
+    while (color_position < 8 * 8 && data[color_position] == 0 || data[color_position] == 99) {
         color_position = color_position + FRONTAL_WALL;
         depth++;
     }
@@ -182,7 +182,7 @@ void set_visible(uint8_t data[8 * 8], uint32_t buffer[SCREEN_WIDTH * SCREEN_HEIG
 
 void __r_init__()
 {
-    __m__window = SDL_CreateWindow("infrared", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    __m__window = SDL_CreateWindow("ultrared", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     __m__renderer = SDL_CreateRenderer(__m__window, -1, SDL_RENDERER_ACCELERATED);
     
     __m__surface = SDL_GetWindowSurface(__m__window);
@@ -220,7 +220,7 @@ void __r_loop__(DATA data)
                     if (data.position + FORW > 64) {
                         data.position = data.position;
                     }
-                    else if (data.map_data[data.position + FORW] == 0) {
+                    else if (data.map_data[data.position + FORW] == 0 || data.map_data[data.position + FORW] == 99) {
                         data.position += FORW;
                     }
                     else {
@@ -233,7 +233,7 @@ void __r_loop__(DATA data)
                     if (data.position - BACK < 0) {
                         data.position = data.position;
                     }
-                    else if (data.map_data[data.position - FORW] == 0) {
+                    else if (data.map_data[data.position - FORW] == 0 || data.map_data[data.position - FORW] == 99) {
                         data.position -= BACK;
                     }
                     else {
@@ -247,7 +247,7 @@ void __r_loop__(DATA data)
                     if (data.position - RIGHT < 0)
                         data.position = data.position;
 
-                    else if (data.map_data[data.position - RIGHT] == 0) {
+                    else if (data.map_data[data.position - RIGHT] == 0 || data.map_data[data.position - RIGHT] == 99) {
                         data.position -= RIGHT;
                     }
                     else {
@@ -260,7 +260,7 @@ void __r_loop__(DATA data)
                     if (data.position + LEFT > 64) {
                         data.position = data.position;
                     }
-                    else if (data.map_data[data.position + LEFT] == 0) {
+                    else if (data.map_data[data.position + LEFT] == 0 || data.map_data[data.position + LEFT] == 99) {
                         data.position += LEFT;
                     }
                     else {
@@ -362,6 +362,10 @@ void __r_loop__(DATA data)
             printf("[UR] POS: %d | HED: %d\n", data.position, data.heading);
             set_visible(data.map_data, buffer, data.position);
         }
+
+        if (data.map_data[data.position] == 99)
+            _ui_end_level_screen(__m__window, __m__renderer,
+                                 __m__surface, __m__texture);
 
         // draw shit
         SDL_Delay(10);
